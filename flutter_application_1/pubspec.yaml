@@ -1,0 +1,38 @@
+name: flutter_application_1
+description: "Etkinlik Keşif Uygulaması - MOBILAB Görevi"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # iOS tarzı ikonlar için varsayılan paket
+  cupertino_icons: ^1.0.8
+
+  # İnternetten veri çekmek (HTTP istekleri) için gelişmiş ağ paketi
+  dio: ^5.7.0
+
+  # Cihaz hafızasında küçük verileri (favoriler, tema seçimi vb.) saklamak için
+  shared_preferences: ^2.3.3
+
+  # Tarih ve saat formatlama işlemleri için (Örn: 21 Ekim 2026, 18:00)
+  intl: ^0.20.2
+
+  # İnternetten gelen etkinlik görsellerini önbelleğe alarak hızlı göstermek için
+  cached_network_image: ^3.4.1
+
+  # Durum yönetimi (State Management) için kullanımı kolay paket
+  provider: ^6.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

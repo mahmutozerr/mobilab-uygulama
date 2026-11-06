@@ -1,0 +1,46 @@
+name: Flutter CI - Etkinlik Kesif Uygulamasi
+
+# Bu iş akışı (workflow), 'main' veya 'master' dalına (branch) her kod gönderildiğinde (push)
+# veya birleştirme isteği (pull_request) açıldığında otomatik olarak çalışır.
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  analyze_and_test:
+    name: Kod Analizi ve Testler (Build & Test)
+    runs-on: ubuntu-latest # GitHub'ın ücretsiz Ubuntu (Linux) sanal sunucusunda çalışır
+
+    steps:
+      # 1. Adım: Depodaki (Repository) kaynak kodları sanal sunucuya indir
+      - name: Kaynak Kodu İndir (Checkout)
+        uses: actions/checkout@v4
+
+      # 2. Adım: Java ortamını kur (Android/Flutter araçları için gerekli)
+      - name: Java 17 Kurulumu
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # 3. Adım: Flutter SDK'sını sanal sunucuya kur ve önbelleğe (cache) al
+      - name: Flutter SDK Kurulumu
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      # 4. Adım: pubspec.yaml içindeki paketleri (dio, shared_preferences, provider vb.) indir
+      - name: Paketleri Yükle (flutter pub get)
+        run: flutter pub get
+
+      # 5. Adım: Kodda yazım hatası, kullanılmayan değişken veya kural ihlali var mı kontrol et
+      - name: Statik Kod Analizi (flutter analyze)
+        run: flutter analyze
+
+      # 6. Adım: Birim ve Widget testlerini çalıştırarak uygulamanın sağlamlığını doğrula
+      - name: Otomatik Testleri Çalıştır (flutter test)
+        run: flutter test
+

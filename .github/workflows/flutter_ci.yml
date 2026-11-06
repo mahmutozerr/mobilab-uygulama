@@ -1,0 +1,41 @@
+name: Flutter CI - Etkinlik Kesif Uygulamasi
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  analyze_and_test:
+    name: Kod Analizi ve Testler (Build & Test)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_application_1
+
+    steps:
+      - name: Kaynak Kodu İndir (Checkout)
+        uses: actions/checkout@v4
+
+      - name: Java 17 Kurulumu
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Flutter SDK Kurulumu
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Paketleri Yükle (flutter pub get)
+        run: flutter pub get
+
+      - name: Statik Kod Analizi (flutter analyze)
+        run: flutter analyze
+
+      - name: Otomatik Testleri Çalıştır (flutter test)
+        run: flutter test
+

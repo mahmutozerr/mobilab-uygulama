@@ -1,0 +1,4 @@
+# Boş geçici görev dosyasını ve IDE dosyalarını hariç tut
+mobilab_gorev
+.idea/
+.vscode/
